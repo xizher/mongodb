@@ -98,7 +98,9 @@ class MongodbHelper {
     const client = await this._connect()
     const updarCpy = { $set: updater }
     const db = client.db(this._db)
-    const updateResult = await db.collection(this._collection).updateMany(filter, updarCpy)
+    const updateResult = await db.collection(this._collection).updateMany(filter, updarCpy, {
+      upsert: true
+    })
     client.close()
     return updateResult
   }
